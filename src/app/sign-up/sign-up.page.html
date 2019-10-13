@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar>
+  
+        <ion-icon name="reorder" slot = "start" size = large></ion-icon>
+  
+      <ion-title>
+        Machina Artem
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <div class="ion-padding">
+        Sign Up
+     </div>
+
+    <ion-item>
+      <ion-label position="floating">
+        Username
+      </ion-label>
+        <ion-input
+        formControlName = "username" type = "text"></ion-input>
+      </ion-item>
+      
+      <p><ion-item>
+        <ion-label position="floating">
+         Email</ion-label>
+        <ion-input
+        formControlName = "email" type = "text" >
+        </ion-input>
+      </ion-item></p>
+      
+      <p><ion-item>
+          <ion-label position="floating" >Password</ion-label>
+          <ion-input
+          formControlName = "password" type = "text">
+        </ion-input>
+        </ion-item></p>
+        
+        <p><ion-item>
+          <ion-label position="floating" >Confirm Password</ion-label>
+          <ion-input></ion-input>
+        </ion-item></p>
+        
+  <ion-button color="danger" shape="full" expand= "block" href= "\main" type="submit" [disabled]="!createProfileForm.valid">Confirm</ion-button>
+
+  <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
+
+</ion-content>
