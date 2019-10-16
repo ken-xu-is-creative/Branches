@@ -9,11 +9,15 @@ import { InfoService } from '../../app/info.service';
   templateUrl: './sign-up.page.html',
   styleUrls: ['./sign-up.page.scss'],
 })
+
 export class SignUpPage implements OnInit {
+  
   userDoc: any;
   
   public createInfoForm: FormGroup;
+  
   router: any;
+
   constructor(
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
@@ -27,6 +31,10 @@ export class SignUpPage implements OnInit {
     });
   }
 
+  click() {
+    
+  }
+  
   async createProfile() {
 
     const loading = await this.loadingCtrl.create();
@@ -55,6 +63,8 @@ export class SignUpPage implements OnInit {
 
   ngOnInit() {
   }
+
+
 
 
   

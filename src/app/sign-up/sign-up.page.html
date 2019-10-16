@@ -40,10 +40,10 @@
         
         <p><ion-item>
           <ion-label position="floating" >Confirm Password</ion-label>
-          <ion-input></ion-input>
+          <ion-input formControlName = "passwordConfirm" type = "text"></ion-input>
         </ion-item></p>
         
-  <ion-button color="danger" shape="full" expand= "block" href= "\main" type="submit" [disabled]="!createInfoForm.valid">Confirm</ion-button>
+  <ion-button color="danger" shape="full" expand= "block" (click) = "clicked()" type="submit" [disabled]="!createInfoForm.valid">Confirm</ion-button>
 
   <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
 
