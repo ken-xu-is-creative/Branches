@@ -16,8 +16,8 @@
 
 
 <ion-item>
-  <ion-label position="floating" >Username</ion-label>
-  <ion-input></ion-input>
+  <ion-label position="floating">Username</ion-label>
+  <ion-input formControlName="username"></ion-input>
 </ion-item>
 
 <div class="validation-errors">
@@ -32,6 +32,14 @@
   <ion-label position="floating" >Password</ion-label>
   <ion-input></ion-input>
 </ion-item></p>
+
+<div class="validation-errors">
+  <ng-container *ngFor="let validation of validation_messages.password">
+    <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>
 
   <div><a href = "\sign-up"> Forget your password? </a></div>
   
