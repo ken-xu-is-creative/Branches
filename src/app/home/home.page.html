@@ -14,7 +14,7 @@
      Your Personal Art Machine
   </div>
 
-
+ <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
 <ion-item>
   <ion-label position="floating">Username</ion-label>
   <ion-input formControlName="username"></ion-input>
@@ -43,7 +43,7 @@
 
   <div><a href = "\sign-up"> Forget your password? </a></div>
   
-  <ion-button color="danger" shape="full" expand= "block" href= "\main">Log In</ion-button>
+  <ion-button color="danger" shape="full" expand= "block" href= "\main" class="submit-btn" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
 
   <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
 
