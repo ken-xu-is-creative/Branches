@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { InfoService } from '../../app/info.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+ 
   validations_form: FormGroup;
   errorMessage: string = '';
  
@@ -22,18 +24,13 @@ export class HomePage implements OnInit {
   ngOnInit() {
  
     this.validations_form = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ])),
-
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
-
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
+        Validators.maxLength(20),
         Validators.required
       ])),
     });
@@ -41,13 +38,8 @@ export class HomePage implements OnInit {
  
  
   validation_messages = {
-    'username': [
-      { type: 'required', message: 'Username is required.' },
-      { type: 'pattern', message: 'Please enter a valid username.' }
-    ],
-    
     'email': [
-      { type: 'required', message: 'Email is required.' },
+      { type: 'required', message: 'email is required.' },
       { type: 'pattern', message: 'Please enter a valid email.' }
     ],
     'password': [
@@ -69,8 +61,8 @@ export class HomePage implements OnInit {
   }
  
   goToRegisterPage(){
-    this.navCtrl.navigateForward('/register');
+    this.navCtrl.navigateForward('/signup');
   }
  
-
 }
+ 

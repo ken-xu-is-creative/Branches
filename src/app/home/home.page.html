@@ -14,20 +14,38 @@
      Your Personal Art Machine
   </div>
 
-
+ <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
 <ion-item>
-  <ion-label position="floating" >Username</ion-label>
-  <ion-input></ion-input>
+  <ion-label position="floating">Email</ion-label>
+  <ion-input formControlName="email"></ion-input>
 </ion-item>
+
+<div class="validation-errors">
+  <ng-container *ngFor="let validation of validation_messages.email">
+    <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>
 
 <p><ion-item>
   <ion-label position="floating" >Password</ion-label>
-  <ion-input></ion-input>
+  <ion-input formControlName="password" class="form-controll" required></ion-input>
 </ion-item></p>
+
+<div class="validation-errors">
+  <ng-container *ngFor="let validation of validation_messages.password">
+    <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>
+
+</form>
 
   <div><a href = "\sign-up"> Forget your password? </a></div>
   
-  <ion-button color="danger" shape="full" expand= "block" href= "\main">Log In</ion-button>
+  <ion-button color="danger" shape="full" expand= "block" href= "\main" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
 
   <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
 

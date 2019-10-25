@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: ('./home/home.module#HomePageModule')},
+  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'history-of-art', loadChildren: './history-of-art/history-of-art.module#HistoryOfArtPageModule' },
   { path: 'catergories-of-art', loadChildren: './catergories-of-art/catergories-of-art.module#CatergoriesOfArtPageModule' },
   { path: 'main', loadChildren: './main/main.module#MainPageModule' },
@@ -20,4 +20,6 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  
+ }
