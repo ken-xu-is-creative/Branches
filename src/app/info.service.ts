@@ -1,29 +1,13 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore, DocumentReference } from 'angularfire2/firestore';
-import { ProfileInfo } from '../app/profileInfo';
+import { Injectable } from '@angular/core';;
 import * as firebase from 'firebase/app';
 
+@Injectable()
 
 export class InfoService{
 
-constructor(public info: AngularFirestore) {}
- 
-createProfile(
-  username: string,
-  email: string,
-  password: string,
-): Promise<void> {
-  const id = this.info.createId();
+constructor() {}
 
-  return this.info.doc(`profileList/${id}`).set({
-    username,
-    email,
-    password
-  });
-  
- }
-
- registerUser(value: { email: string; password: string; }){
+ registerUser(value){
   return new Promise<any>((resolve, reject) => {
     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
     .then(
@@ -32,7 +16,7 @@ createProfile(
   })
  }
 
- loginUser(value: { email: string; password: string; }){
+ loginUser(value){
   return new Promise<any>((resolve, reject) => {
     firebase.auth().signInWithEmailAndPassword(value.email, value.password)
     .then(

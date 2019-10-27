@@ -41,13 +41,17 @@
   </ng-container>
 </div>
 
-</form>
+<label class="error-message">{{errorMessage}}</label>
+
+
 
   <div><a href = "\sign-up"> Forget your password? </a></div>
   
-  <ion-button color="danger" shape="full" expand= "block" href= "\main" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
+  <ion-button class="submit-btn" color="danger" shape="full" expand= "block" href= "\main" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
 
   <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
+
+</form>
 
   <a href = "\sign-up" > Don't have an account? </a>
 

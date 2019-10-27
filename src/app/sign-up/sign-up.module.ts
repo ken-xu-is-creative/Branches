@@ -26,3 +26,5 @@ const routes: Routes = [
   declarations: [SignUpPage]
 })
 export class SignUpPageModule {}
+
+

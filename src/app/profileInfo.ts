@@ -1,5 +1,5 @@
 export interface ProfileInfo {
- username: string;
+  username: string;
   password: string;
   email: string;
 }

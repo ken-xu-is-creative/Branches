@@ -13,19 +13,36 @@ import { AngularFireModule} from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule} from 'angularfire2/firestore'; 
 import { firebaseConfig } from './credentials';
+import { InfoService } from '../app/info.service';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import * as firebase from 'firebase';
+
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
+    AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule,],
+    AngularFirestoreModule,
+    AngularFireAuthModule],
   providers: [
     StatusBar,
     SplashScreen,
+    InfoService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
+
+
+
+
+
+
