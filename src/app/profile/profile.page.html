@@ -1,11 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Machina Artem</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  
+    <div class="ion-padding">
+        Profile
+     </div>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        Firebase Cloud Storage & Angular 5
+      </div>
+      <div class="card-body">
+        <label for="file">File:</label>
+        <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+      </div>
+    </div>
+  </div>
 
 </ion-content>
