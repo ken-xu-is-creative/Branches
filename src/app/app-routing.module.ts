@@ -3,7 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+<<<<<<< HEAD
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+=======
+  { path: 'home', loadChildren() => import('./home/home.module').then( m => m.HomePageModule)},
+>>>>>>> f218826e0ee7929adcea76fb2ecbf204ddc59074
   { path: 'history-of-art', loadChildren: './history-of-art/history-of-art.module#HistoryOfArtPageModule' },
   { path: 'catergories-of-art', loadChildren: './catergories-of-art/catergories-of-art.module#CatergoriesOfArtPageModule' },
   { path: 'main', loadChildren: './main/main.module#MainPageModule' },
