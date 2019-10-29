@@ -1,19 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { NavController, ModalController } from '@ionic/angular';
+import { InfoService } from '../info.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss'],
 })
+
+
 export class MainPage implements OnInit {
-  userDoc: any;
 
-  constructor(private fireStore: AngularFirestore) {
-    this.userDoc = fireStore.doc<any>('userProfile/we45tfgy8ij');
+  userEmail: string;
+ 
+  constructor(
+    private navCtrl: NavController,
+    private authService: InfoService
+  ) {}
+ 
+  ngOnInit(){
+    
+    if(this.authService.userDetails()){
+      this.userEmail = this.authService.userDetails().email;
+      
+    }else{
+      this.navCtrl.navigateBack('');
+    }
   }
-
-  ngOnInit() {
+ 
+  logout(){
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res);
+      this.navCtrl.navigateBack('');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
-
 }
+
+
