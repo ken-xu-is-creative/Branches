@@ -26,23 +26,16 @@ constructor() {}
   })
  }
 
- setUsername(value){
-  
-  if(firebase.auth().currentUser){
+ 
 
-  }
+ matchUsernameWithStyle(value){
 
- }
+  var user = firebase.auth().currentUser;
 
- getUsername(value){
-
-
- }
-
- matchUsernameWithStyle(){
-
-
- }
+  var styleUrl, username, styleName, privacySetting;
+ 
+}
+ 
 
  logoutUser(){
   return new Promise((resolve, reject) => {
@@ -67,5 +60,8 @@ createAnonymousUser(): Promise<any> {
 }
 
 }
+
+
+
 
 
