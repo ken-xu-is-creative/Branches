@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
   { path: 'sign-up', loadChildren: './sign-up/sign-up.module#SignUpPageModule' },
-  { path: 'ancient-art', loadChildren: './ancient-art/ancient-art.module#AncientArtPageModule' },  { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },
+  { path: 'ancient-art', loadChildren: './ancient-art/ancient-art.module#AncientArtPageModule' },
+  { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },
 
     
 ];

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
@@ -27,9 +27,12 @@ const routes: Routes = [
     storageBucket: "machina-artem.appspot.com",
     projectId: "machina-artem",
     }),
+    ReactiveFormsModule,
     AngularFireStorageModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage],
+  entryComponents:[ProfilePage]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule {
+}

@@ -15,7 +15,7 @@ export class ProfileService{
     return new Promise<any>((resolve, reject) => {
     
     var user = firebase.auth().currentUser;
-    
+
     firebase.database().ref('users/' + user.uid).set({
       username: value.username,
       email:user.email
@@ -33,18 +33,24 @@ export class ProfileService{
     }
   
 
+    
 }
 
-export function uploadCustomizedStyle(uid, username, picture, styleName, privacy) {
-  // A post entry.
+export function uploadCustomizedStyle(url,value,privacy) {
+
+  return new Promise<any>((resolve, reject) => {
+  var userID = firebase.auth().currentUser.uid;
+
+  var userProfile = firebase.database().ref('users/' + userID);
+
   var postData = {
-    author: username,
-    uid: uid,
+    author:  userProfile.once('value').then(function(snapshot) {(snapshot.val() && snapshot.val().username) || 'Anonymous';}),
     privacySetting: privacy,
-    style_name: styleName,
+    style_name: value.stylename,
     flaggedCount: 0,
-    authorPic: picture
+    authorPic: url
   };
+})
 }
 
 export function toggleFlag(postRef, uid) {
@@ -64,3 +70,4 @@ export function toggleFlag(postRef, uid) {
     return post;
   });
 }
+

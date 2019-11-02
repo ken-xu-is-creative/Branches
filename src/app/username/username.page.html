@@ -22,6 +22,11 @@
   </div>
 
   <ion-item>
+    <ion-label> Set Account Public </ion-label>
+    <ion-toggle color="primary" disabled = "!validations_form.valid" ></ion-toggle>
+  </ion-item>
+
+  <ion-item>
   <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"> Confirm </ion-button>
   </ion-item>
 

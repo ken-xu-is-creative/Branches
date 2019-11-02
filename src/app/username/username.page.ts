@@ -11,7 +11,10 @@ import {FormGroup,FormBuilder, Validators, FormControl} from '@angular/forms';
 })
 
 
+
 export class UsernamePage implements OnInit {
+
+ 
 
   validations_form: FormGroup;
 
@@ -28,10 +31,16 @@ export class UsernamePage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private profileService: ProfileService,
-    private formBuilder: FormBuilder
-    ) { }
+    private formBuilder: FormBuilder,
 
+   
+    ) {
+    
+  }
+
+    
   ngOnInit() {
+
 
      this.validations_form = this.formBuilder.group({
 
@@ -47,7 +56,6 @@ export class UsernamePage implements OnInit {
 
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-       
     } else {
        this.navCtrl.navigateBack();
     }
