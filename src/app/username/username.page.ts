@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../profile-service.service';
+import { ProfileServiceService } from '../profile-service.service';
 import { NavController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import {FormGroup,FormBuilder, Validators, FormControl} from '@angular/forms';
@@ -30,7 +30,7 @@ export class UsernamePage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private profileService: ProfileService,
+    private profileService: ProfileServiceService,
     private formBuilder: FormBuilder,
 
    
@@ -49,6 +49,8 @@ export class UsernamePage implements OnInit {
       ]))
      
     });
+
+    this.confirmUserLogin();
 
   }
 

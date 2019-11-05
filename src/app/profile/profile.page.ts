@@ -4,10 +4,12 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ProfileService, uploadCustomizedStyle} from '../profile-service.service';
+import { uploadCustomizedStyle } from '../profile-service.service';
 import * as firebase from 'firebase';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { UsernamePage } from '../username/username.page';
+
 
 
 export interface Image {
@@ -48,25 +50,43 @@ export class ProfilePage {
  newImage: Image = {
   id: this.afs.createId(), image: ''
  }
- loading: boolean = false;downloadURL: any;
+ loading: boolean = false;
+ downloadURL: any;
+  userEmail: string;
 ;
  
   constructor(
     private navCtrl: NavController,
-    // private profileService: ProfileService,
     private formBuilder: FormBuilder,
     private afs: AngularFirestore, private afStorage: AngularFireStorage,
-
   ) {
     this.isPublic = false;
   }
-
-  privacyStatus() {
-    console.log("Toggled: "+ this.isPublic); 
-  }
  
-  
+  verify(){
+    if(firebase.auth().currentUser != null){
+      this.userEmail = firebase.auth().currentUser.email;
+      console.log(firebase.auth().currentUser.email);
+      console.log(firebase.auth().currentUser.uid);
+    }else{
+      console.log("No Account");
+      this.navCtrl.navigateBack('/main');
+    }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+       console.log("the user is signned in")
+      } else {
+        console.log("No Account");
+        this.navCtrl.navigateBack('/main');
+      }
+    });
+  }
+
+
   ngOnInit(){
+
+    this.verify();
 
     this.validations_form = this.formBuilder.group({
 
@@ -82,30 +102,31 @@ export class ProfilePage {
 
   });
 
+}
 
+privacyStatus() {
+  console.log("Toggled: "+ this.isPublic); 
 }
   
-  combineInfo(value){
+ combineInfo(value){
 
      return value;
 
   }
 
+
   uploadImage(event) {
-    
-    this.loading = true;
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-    }
-
-    this.setImageInfo(reader,event,this.combineInfo(this.validations_form.value));
-  }
-
-  setImageInfo(reader,event,value){
 
     var user = firebase.auth().currentUser;
+    
 
-    reader.readAsDataURL(event.target.files[0]);
+    console.log(user.email);
+
+    this.loading = false;
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+     
+      reader.readAsDataURL(event.target.files[0]);
       // For Preview Of Image
       reader.onload = (e:any) => { // called once readAsDataURL is completed
         this.url = e.target.result;
@@ -113,35 +134,32 @@ export class ProfilePage {
         // For Uploading Image To Firebase
         const fileraw = event.target.files[0];
         console.log(fileraw)
-        const filePath = '/Image/' + this.newImage.id + '/' + 'Image'  + value.stylename;
-        const result = this.SaveImageRef(filePath, fileraw);
-        const ref = result.ref; 
 
+
+        const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
+        const result = this.SaveImageRef(filePath, fileraw);
+        const ref = result.ref;
         result.task.then(a => {
           ref.getDownloadURL().subscribe(a => {
             console.log(a);
-            console
             
             this.newImage.image = a;
             this.loading = false;
+
           });
 
-          this.afs.collection('Image').doc(this.newImage.id).set(this.newImage);
+          this.afs.collection("Style").doc(user.uid).set(this.newImage);
+
+          uploadCustomizedStyle(this.url,this.combineInfo(this.validations_form.value).stylename,this.isPublic);
         });
-
-        this.downloadURL = ref.getDownloadURL();
-
-        uploadCustomizedStyle(this.downloadURL,value,this.isPublic);
-
-      }, err => {
-        console.log(err);
-        this.errorMessage = err.message;
-        this.successMessage = "";
+      }, error => {
+        alert("Error");
       }
 
-      
-    
+    }
+
   }
+
 
 
   SaveImageRef(filePath, file) {
@@ -151,8 +169,10 @@ export class ProfilePage {
       , ref: this.afStorage.ref(filePath)
     };
   }
-    
 
+
+
+  // this.profileService.uploadCustomizedStyle(ref.getDownloadURL(),this.combineInfo(this.validations_form.value),this.isPublic,this.newImage);
   
   
   // tryUploadImage(value,event){

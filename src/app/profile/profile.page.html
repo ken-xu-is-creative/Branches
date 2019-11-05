@@ -13,11 +13,15 @@
 
     <ion-item>
 
-      <ion-button color = "danger" >Upload Your Style Base Image</ion-button>
+      <!-- <ion-button color = "danger" >Upload Your Style Base Image</ion-button> -->
     
+     
+        <div>Your Registered EmailID : {{userEmail}}</div>
+ 
+      
       <div class="box">
           <div class="preview">
-            <img [src]="url" alt="">
+            <img *ngIf = "url" alt=""  [src]="url">
           </div>
           <div class="uploadbtn">
             <label>
@@ -52,7 +56,7 @@
     </form>
   
     <ion-item>
-        <ion-label> Set Account Public </ion-label>
+        <ion-label> Set Style Public </ion-label>
         <ion-toggle color="primary"   [(ngModel)]="isPublic" (ionChange)="privacyStatus()" ></ion-toggle>
      </ion-item>
 

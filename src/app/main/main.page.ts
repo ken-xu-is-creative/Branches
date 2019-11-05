@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { InfoService } from '../info.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-main',
@@ -38,6 +39,14 @@ export class MainPage implements OnInit {
       console.log(error);
     })
   }
+
+  toProfile(){
+ 
+    this.navCtrl.navigateForward('/profile');
+    console.log("The account is " + firebase.auth().currentUser.email);
+
+  }
+
 }
 
 
