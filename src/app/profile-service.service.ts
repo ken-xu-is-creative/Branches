@@ -52,7 +52,7 @@ userDetails(){
 }
 
 export function toggleFlag(postRef, uid) {
-  postRef.transaction(function(post) {
+  postRef.transaction(post => {
     if (post) {
       if (post.flagged && post.stars[uid]) {
         post.starCount--;
@@ -67,40 +67,29 @@ export function toggleFlag(postRef, uid) {
     }
     return post;
   });
-
 }
 
-export function uploadCustomizedStyle(url,value,privacy) {
-      
-  var user = firebase.auth().currentUser;
-  
+
+export function uploadCustomizedStyle(url, stylename, privacy) {
+  const user = firebase.auth().currentUser;
+
   return new Promise<any>((resolve, reject) => {
-
-  var userProfile = firebase.database().ref('users/' + user.uid);
-
-  var privacySet: string = String(privacy);
-
-  var name: String = String(value.stylename);
-
-  var uploadtime = Date;
-
-  var datepipe: DatePipe;
-
-  var a = datepipe.transform(uploadtime, 'yyyy-MM-dd');
-
-
-
-  var username : String = String (userProfile.once('value').then(function(snapshot) {(snapshot.val() && snapshot.val().username) || 'Anonymous';}));
-
-  firebase.database().ref('style/' + user.uid + "/upload/"+a).set({
-    author: username,
-    privacySetting: privacySet,
-    style_name: name,
-    flaggedCount: 0,
-    authorPic: url
-  });
-
-})
+    const userProfile = firebase.database().ref('users/' + user.uid);
+    const privacySet = String(privacy);
+    const name = stylename;
+    const uploadtime = new Date();
+    userProfile.once('value').then(snapshot => {
+      const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+      firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
+        author: username,
+        privacySetting: privacySet,
+        style_name: stylename,
+        flaggedCount: 0,
+        authorPic: url
+      });
+    });
+  }
+);
 
 
 

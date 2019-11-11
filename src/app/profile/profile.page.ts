@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { AlertController, NavController, NavParams } from '@ionic/angular'
+import { Component, OnInit,  } from '@angular/core';
+import { AlertController, NavController, NavParams } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
@@ -21,40 +21,34 @@ export interface Image {
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
-  
 })
 
-export class ProfilePage {
-  
+export class ProfilePage implements OnInit {
   public isPublic: boolean;
-  
+
   validations_form: FormGroup;
   // matching_passwords_group: FormGroup;
-  errorMessage: string = '';
-  successMessage: string = '';
- 
+  errorMessage = '';
+  successMessage = '';
+
   validation_messages = {
-   
-    'styleUrl': [
-     { type: 'required', message: 'Email is required.' },
+    styleUrl: [
+      { type: 'required', message: 'Email is required.' },
     ],
-
-    'stylename': [
-     { type: 'required', message: 'Password is required.' },
+    stylename: [
+      { type: 'required', message: 'Password is required.' },
     ]
+  };
 
- };
-  
+  url: any;
+  newImage: Image = {
+    id: this.afs.createId(), image: ''
+  };
 
- url: any;
- newImage: Image = {
-  id: this.afs.createId(), image: ''
- }
- loading: boolean = false;
- downloadURL: any;
+  loading = false;
+  downloadURL: any;
   userEmail: string;
-;
- 
+
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -62,47 +56,43 @@ export class ProfilePage {
   ) {
     this.isPublic = false;
   }
- 
-  verify(){
-    if(firebase.auth().currentUser != null){
+
+  verify() {
+    if (firebase.auth().currentUser != null) {
       this.userEmail = firebase.auth().currentUser.email;
       console.log(firebase.auth().currentUser.email);
       console.log(firebase.auth().currentUser.uid);
-    }else{
-      console.log("No Account");
+    } else {
+      console.log('No Account');
       this.navCtrl.navigateBack('/main');
     }
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-       console.log("the user is signned in")
+       console.log('the user is signned in');
       } else {
-        console.log("No Account");
+        console.log('No Account');
         this.navCtrl.navigateBack('/main');
       }
     });
   }
 
-
-  ngOnInit(){
-
+  ngOnInit() {
     this.verify();
 
     this.validations_form = this.formBuilder.group({
+      // username: new FormControl('', Validators.compose([
+      //   Validators.required
+      // ])),
 
-    // username: new FormControl('', Validators.compose([
-    //   Validators.required
-    // ])),
+      stylename: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
 
-    stylename: new FormControl('', Validators.compose([
-      Validators.required,
-    ])),
+      privacy: this.isPublic,
 
-    privacy: this.isPublic,
-
-  });
-
-}
+    });
+  }
 
 privacyStatus() {
   console.log("Toggled: "+ this.isPublic); 
@@ -116,57 +106,43 @@ privacyStatus() {
 
 
   uploadImage(event) {
-
-    var user = firebase.auth().currentUser;
-    
-
+    const user = firebase.auth().currentUser;
     console.log(user.email);
 
     this.loading = false;
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-     
+      const reader = new FileReader();
+
       reader.readAsDataURL(event.target.files[0]);
       // For Preview Of Image
-      reader.onload = (e:any) => { // called once readAsDataURL is completed
+      reader.onload = (e: any) => { // called once readAsDataURL is completed
         this.url = e.target.result;
-      
+
         // For Uploading Image To Firebase
         const fileraw = event.target.files[0];
-        console.log(fileraw)
-
+        console.log(fileraw);
 
         const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
         const result = this.SaveImageRef(filePath, fileraw);
         const ref = result.ref;
         result.task.then(a => {
-          ref.getDownloadURL().subscribe(a => {
-            console.log(a);
-            
-            this.newImage.image = a;
+          ref.getDownloadURL().subscribe(url => {
+            console.log(url);
+            this.newImage.image = url;
             this.loading = false;
 
+            uploadCustomizedStyle(url, this.combineInfo(this.validations_form.value).stylename, this.isPublic);
           });
-
-          this.afs.collection("Style").doc(user.uid).set(this.newImage);
-
-          uploadCustomizedStyle(this.url,this.combineInfo(this.validations_form.value).stylename,this.isPublic);
         });
-      }, error => {
-        alert("Error");
-      }
-
+      };
     }
-
   }
 
 
-
   SaveImageRef(filePath, file) {
-
     return {
-      task: this.afStorage.upload(filePath, file)
-      , ref: this.afStorage.ref(filePath)
+      task: this.afStorage.upload(filePath, file),
+      ref: this.afStorage.ref(filePath)
     };
   }
 
