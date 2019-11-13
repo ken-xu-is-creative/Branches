@@ -1,11 +1,64 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Machina Artem</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <div class="ion-padding">
+        Profile
+    </div>
+      
+
+    <ion-item>
+
+      <!-- <ion-button color = "danger" >Upload Your Style Base Image</ion-button> -->
+    
+     
+        <div>Your Registered EmailID : {{userEmail}}</div>
+ 
+      
+      <div class="box">
+          <div class="preview">
+            <img *ngIf = "url" alt=""  [src]="url">
+          </div>
+          <div class="uploadbtn">
+            <label>
+              <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
+            </label>
+          </div>
+        </div>
+    
+     </ion-item>
+
+ <form class="form" [formGroup]="validations_form" (ngSubmit)="combineInfo(validations_form.value)">
+   
+       
+    <ion-item>
+        <ion-label position="floating"> The style name </ion-label>
+        <ion-input type = "text" required = "true" formControlName = "stylename"></ion-input>
+    </ion-item>
+
+      
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.stylename">
+            <div class="error-message" *ngIf="validations_form.get('stylename').hasError(validation.type) && (validations_form.get('stylename').dirty || validations_form.get('stylename').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+
+      <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"  >Confirm</ion-button>
+
+
+    </form>
   
+    <ion-item>
+        <ion-label> Set Style Public </ion-label>
+        <ion-toggle color="primary"   [(ngModel)]="isPublic" (ionChange)="privacyStatus()" ></ion-toggle>
+     </ion-item>
+
 
 </ion-content>

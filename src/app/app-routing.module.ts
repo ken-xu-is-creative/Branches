@@ -11,6 +11,8 @@ const routes: Routes = [
   { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
   { path: 'sign-up', loadChildren: './sign-up/sign-up.module#SignUpPageModule' },
   { path: 'ancient-art', loadChildren: './ancient-art/ancient-art.module#AncientArtPageModule' },
+  { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },
+
     
 ];
 

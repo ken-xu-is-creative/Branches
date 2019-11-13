@@ -15,7 +15,7 @@ import { NavController } from '@ionic/angular';
 export class SignUpPage implements OnInit {
   
   validations_form: FormGroup;
-  matching_passwords_group: FormGroup;
+  // matching_passwords_group: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
  
@@ -61,7 +61,9 @@ export class SignUpPage implements OnInit {
         Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
       ]))
-    });}
+    });
+  
+  }
 
 
   tryRegister(value){
@@ -71,7 +73,7 @@ export class SignUpPage implements OnInit {
        this.errorMessage = "";
        this.successMessage = "Your account has been created.";
        wait(3000);
-       this.navCtrl.navigateForward('/main');
+       this.navCtrl.navigateForward('/username');
 
      }, err => {
        console.log(err);
@@ -81,7 +83,7 @@ export class SignUpPage implements OnInit {
   }
 
   goMainPage(){
-    this.navCtrl.navigateForward("/main");
+    this.navCtrl.navigateForward("/username");
   }
 
 }

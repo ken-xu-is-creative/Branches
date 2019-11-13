@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>username</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<form class="form" [formGroup]="validations_form" (ngSubmit)="trySetUsername(validations_form.value)">
+
+  <ion-item>
+  <ion-label position="floating"> Please Input Your Username </ion-label>
+  <ion-input formControlName = "username"  type = "text" required = "true"></ion-input>
+  </ion-item>
+
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.username">
+      <div class="error-message" *ngIf="validations_form.get('username').hasError(validation.type) && (validations_form.get('username').dirty || validations_form.get('username').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+  <ion-item>
+    <ion-label> Set Account Public </ion-label>
+    <ion-toggle color="primary" disabled = "!validations_form.valid" ></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+  <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"> Confirm </ion-button>
+  </ion-item>
+
+  <label class="error-message">{{errorMessage}}</label>
+  <label class="success-message">{{successMessage}}</label>
+
+</form>
+
+</ion-content>

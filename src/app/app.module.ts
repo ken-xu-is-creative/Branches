@@ -11,12 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule} from 'angularfire2'; 
 import { environment } from '../environments/environment';
-import { AngularFirestoreModule} from 'angularfire2/firestore'; 
+import { AngularFirestoreModule, AngularFirestore} from 'angularfire2/firestore'; 
 import { firebaseConfig } from './credentials';
 import { InfoService } from '../app/info.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import * as firebase from 'firebase';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 
 firebase.initializeApp(environment.firebase);
@@ -34,6 +35,7 @@ firebase.initializeApp(environment.firebase);
     StatusBar,
     SplashScreen,
     InfoService,
+    AngularFireStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

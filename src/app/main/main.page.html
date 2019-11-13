@@ -14,12 +14,15 @@
     <ion-row>
       <ion-col text-center>
         Your Registered EmailID : {{userEmail}}
-        
       </ion-col>
     </ion-row>
+
+    <ion-button (click)="toProfile()">go to profile</ion-button>
+
   </ion-grid>  
 
-  <ion-button href = "profile">go to profile</ion-button>
+ 
+
 </ion-content>
 
 <ion-footer (click)="logout()">
