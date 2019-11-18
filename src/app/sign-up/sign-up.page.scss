@@ -1,0 +1,57 @@
+.background-image{
+
+    --background: #123 url(../../assets/images/background_dark.jpg) no-repeat center center / cover;
+
+}
+
+ion-toolbar{
+
+    --background: transparent;
+
+}
+
+.title {
+
+    font-size: 36px;
+    font-family: "Montserrat";
+    position: relative;
+    font-weight: 300;
+    left:25px;
+    color: white;
+
+    
+}
+
+.subtitle{
+
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-weight: 200;
+    position: relative;
+    left: 25px;
+    top: 0px;
+
+}
+
+.label{
+
+    position: absolute;
+    bottom: 350px;
+
+}
+
+.content{
+
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    left: 18px;
+
+}
+
+.error-message{
+
+    font-family: "Montserrat";
+    font-size: 14px;
+    color: rgb(247, 132, 132);
+}

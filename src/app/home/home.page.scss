@@ -1,1 +1,81 @@
+.background-image{
 
+    --background: rgb(255,255,255) url(../../assets/images/background_dark.jpg) no-repeat center center / cover;
+
+}
+
+ion-toolbar{
+
+    --background: transparent;
+
+}
+
+ion-input{
+
+    --background: transparent;
+}
+
+.ion-padding {
+    color: white;
+  }
+
+.label{
+
+    position: absolute;
+    bottom: 440px;
+    
+
+}
+
+.title {
+
+    font-size: 36px;
+    font-family: "Montserrat";
+    position: relative;
+    font-weight: 300;
+    left:25px;
+
+    
+}
+
+.subtitle{
+
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-weight: 200;
+    position: relative;
+    right: 95px;
+    top: 30px;
+
+}
+
+.content{
+
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    left: 18px;
+
+}
+
+.link{
+
+    color: white;
+
+}
+
+.textfield{
+
+    position: absolute;
+    bottom: 190px;
+    width: 100%;
+    
+
+}
+
+.error-message{
+
+    font-family: "Montserrat";
+    font-size: 14px;
+    color: rgb(247, 132, 132);
+}

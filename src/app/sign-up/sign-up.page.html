@@ -1,20 +1,31 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 <ion-header>
     <ion-toolbar>
   
-      <ion-icon name="reorder" slot = "start" size = large></ion-icon>
+      <ion-icon name="menu" slot = "start" size = large color = "light"></ion-icon>
   
-      <ion-title>
+      <ion-title color = "light">
         Machina Artem
       </ion-title>
     </ion-toolbar>
   </ion-header>
 
-<ion-content>
+<ion-content fullscreen class = "background-image">
 
-    <div class="ion-padding">
+  <div class = "ion-padding"  class = label>
+    <div class="title" >
         Sign Up
      </div>
 
+     <ion-text color = "light" class = "subtitle">
+      Machina Artem <br/>
+      Your Personal Art Machine
+     </ion-text>
+
+  </div>
+
+  <div class="ion-padding" class = "content">
   <form class="form" [formGroup]="validations_form" (ngSubmit)="tryRegister(validations_form.value)">
     <!-- <ion-item>
       <ion-label position="floating">
@@ -31,12 +42,11 @@
         </ng-container>
       </div> -->
       
-      <p><ion-item>
+      <ion-item>
         <ion-label position="floating">
          Email</ion-label>
         <ion-input formControlName = "email" type = "text" required = "true">
         </ion-input>
-      </ion-item></p>
 
       <div class="validation-errors">
         <ng-container *ngFor="let validation of validation_messages.email">
@@ -45,13 +55,13 @@
           </div>
         </ng-container>
       </div>
+    </ion-item>
       
-      <p><ion-item>
+      <ion-item>
           <ion-label position="floating" >Password</ion-label>
           <ion-input
           formControlName = "password"  type = "text" required = "true">
         </ion-input>
-        </ion-item></p>
 
         <div class="validation-errors">
           <ng-container *ngFor="let validation of validation_messages.password">
@@ -60,15 +70,20 @@
             </div>
           </ng-container>
         </div>
+
+      </ion-item>
       
         
-  <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"  >Confirm</ion-button>
+  <p>
+  <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"  >Confirm</ion-button></p>
 
   <label class="error-message">{{errorMessage}}</label>
   <label class="success-message">{{successMessage}}</label>
 
 </form>
 
-  <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
+<p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
+
+</div>
 
 </ion-content>

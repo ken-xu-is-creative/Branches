@@ -1,25 +1,53 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+
 <ion-header>
-  <ion-toolbar>
 
-    <ion-icon name="reorder" slot = "start" size = large></ion-icon>
+    <ion-toolbar>
 
-    <ion-title>
-      Machina Artem
-    </ion-title>
-  </ion-toolbar>
+        <ion-icon name="menu" slot = "start" size = large color = "light"></ion-icon>
+    
+        <!-- <ion-menu side="start" menuId="first">
+          <ion-header>
+            <ion-toolbar color="primary">
+              <ion-title>Start Menu</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-list>
+              <ion-icon></ion-icon><ion-item>Home</ion-item>
+              <ion-item>Profile</ion-item>
+              <ion-item>Info</ion-item>
+              <ion-item>Discover</ion-item>
+            </ion-list>
+          </ion-content>
+        </ion-menu> -->
+      </ion-toolbar>
+      
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
+<ion-content fullscreen class = "background-image">
+
+<div class="ion-padding" class = label>
+  <ion-text color = "light" class = "title">
+      Machina <br/>
+      Artem
+  </ion-text>
+
+    <ion-text color = "light" class = "subtitle">
      Your Personal Art Machine
+    </ion-text>
   </div>
 
- <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
-<ion-item>
-  <ion-label position="floating">Email</ion-label>
-  <ion-input formControlName="email"></ion-input>
-</ion-item>
 
+<div class="ion-padding" class = "content">
+ 
+  <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
+
+<div class = "textfield">
+<ion-item>
+  <ion-label position="floating" color = "dark">Email</ion-label>
+  <ion-input formControlName="email" class="form-controll"></ion-input>
 <div class="validation-errors">
   <ng-container *ngFor="let validation of validation_messages.email">
     <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
@@ -27,25 +55,24 @@
     </div>
   </ng-container>
 </div>
+</ion-item>
 
-<p><ion-item>
-  <ion-label position="floating" >Password</ion-label>
-  <ion-input formControlName="password" class="form-controll" required></ion-input>
-</ion-item></p>
-
+<ion-item>
+  <ion-label position="floating" color = "dark">Password</ion-label>
+  <ion-input formControlName="password" class="form-controll" ></ion-input>
 <div class="validation-errors">
   <ng-container *ngFor="let validation of validation_messages.password">
-    <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+    <div class = "ion-padding" class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
       {{ validation.message }}
     </div>
   </ng-container>
 </div>
-
 <label class="error-message">{{errorMessage}}</label>
+</ion-item>
+</div>
 
 
-
-  <div><a href = "\sign-up"> Forget your password? </a></div>
+  <div><a href = "\sign-up" class = "link"> Forget your password? </a></div>
   
   <ion-button class="submit-btn" color="danger" shape="full" expand= "block" href= "\main" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
 
@@ -53,7 +80,10 @@
 
 </form>
 
-  <a href = "\sign-up" > Don't have an account? </a>
+  <div><a href = "\sign-up" class = "link"> Don't have an account? </a></div>
+
+</div>
 
 </ion-content>
+
 

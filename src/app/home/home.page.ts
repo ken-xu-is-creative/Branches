@@ -45,7 +45,9 @@ export class HomePage implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required.' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+      { type: 'minlength', message: 'Password must be at least 5 characters long' },
+      { type: 'maxlength', message: 'Password must be less that 20 characters' },
+      { type: 'pattern', message: 'Password must contain at least a lower case, a upper case, and numbers'}
     ]
   };
  

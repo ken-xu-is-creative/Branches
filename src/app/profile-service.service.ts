@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { firebaseConfig } from "../app/credentials";
 import { DatePipe } from '@angular/common';
+import { url } from 'inspector';
 
 
 @Injectable({
@@ -92,6 +93,37 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
 );
 
 
+}
+
+export function uploadAvatar(image) {
+
+  const user = firebase.auth().currentUser;
+
+  return new Promise<any>((resolve, reject) => {
+
+    const userProfile2 = firebase.firestore();
+
+    const avatar_image = image;
+
+    const uploadtime = new Date();
+
+    const userProfile = firebase.database().ref('users/' + user.uid);
+
+    userProfile.once('value').then(snapshot => {
+    
+    
+    const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+
+    var userRef = userProfile2.collection("User").doc(user.uid);
+      userRef.set({
+      name: username,
+      avatarImage: avatar_image
+     });
+    
+
+  });
+
+});
 
 }
 

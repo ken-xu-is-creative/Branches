@@ -11,7 +11,9 @@ const routes: Routes = [
   { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
   { path: 'sign-up', loadChildren: './sign-up/sign-up.module#SignUpPageModule' },
   { path: 'ancient-art', loadChildren: './ancient-art/ancient-art.module#AncientArtPageModule' },
-  { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },
+  { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },  { path: 'user-profile', loadChildren: './user-profile/user-profile.module#UserProfilePageModule' },
+  { path: 'profile-image', loadChildren: './profile-image/profile-image.module#ProfileImagePageModule' },
+
 
     
 ];

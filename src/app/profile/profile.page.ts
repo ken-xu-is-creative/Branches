@@ -98,11 +98,11 @@ privacyStatus() {
   console.log("Toggled: "+ this.isPublic); 
 }
   
- combineInfo(value){
+combineInfo(value){
 
      return value;
 
-  }
+}
 
 
   uploadImage(event) {
@@ -121,6 +121,7 @@ privacyStatus() {
         // For Uploading Image To Firebase
         const fileraw = event.target.files[0];
         console.log(fileraw);
+
 
         const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
         const result = this.SaveImageRef(filePath, fileraw);
@@ -146,37 +147,13 @@ privacyStatus() {
     };
   }
 
+  GoMainPage(){
+
+    this.navCtrl.navigateBack('/main');
+
+  }
 
 
-  // this.profileService.uploadCustomizedStyle(ref.getDownloadURL(),this.combineInfo(this.validations_form.value),this.isPublic,this.newImage);
-  
-  
-  // tryUploadImage(value,event){
 
-  // var ref, task, task, downloadURL
-
-  // const randomId = Math.random().toString(36).substring(2);
-  // ref = this.afStorage.ref(randomId);
-  // task = ref.put(event.target.files[0]);
-  // downloadURL = task.downloadURL();
-
-  //   uploadCustomizedStyle(downloadURL,value)
-  //    .then(res => {
-  //      console.log(res);
-  //      this.errorMessage = "";
-  //      this.successMessage = "Your image has been created.";
-  //      this.navCtrl.navigateForward('/username');
-
-  //    }, err => {
-  //      console.log(err);
-  //      this.errorMessage = err.message;
-  //      this.successMessage = "";
-  //    })
-  // }
-
-  // goMainPage(){
-  //   this.navCtrl.navigateForward("/username");
-  // }
 
 }
-

@@ -1,0 +1,87 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+<ion-header>
+    <ion-toolbar>
+  
+      <ion-icon name="menu" slot = "start" size = large ></ion-icon>
+  
+      <ion-title>
+        Machina Artem
+      </ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+        <ion-label>Item Avatar</ion-label>
+      </ion-item>
+
+      <h3>My Styles</h3>
+ 
+      <ion-grid>
+        <ion-row>
+          <ion-col size="determined">
+            <span class="slider-nav arrow-prev"
+              (click)="slidePrev(sliderTwo,slideWithNav2)">
+              <div class="prev-icon-custom custon-nav"
+                [class.disabled]="sliderTwo.isBeginningSlide"></div>
+            </span>
+          </ion-col>
+          <ion-col size= "determined">
+     
+            <ion-slides pager="false" [options]="slideOptsTwo" #slideWithNav2
+              (ionSlideDidChange)="SlideDidChange(sliderTwo,slideWithNav2)">
+              <ion-slide *ngFor="let s of sliderTwo.slidesItems">
+                <img src="../../assets/images/{{s.id}}.jpg">
+              </ion-slide>
+            </ion-slides>
+     
+          </ion-col>
+          <ion-col size="1">
+            <span class="slider-nav arrow-next"
+              (click)="slideNext(sliderTwo,slideWithNav2)">
+              <div class="next-icon-custom custon-nav"
+                [class.disabled]="sliderTwo.isEndSlide"></div>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <h3>Popular Styles</h3>
+ 
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <span class="slider-nav arrow-prev"
+              (click)="slidePrev(sliderTwo,slideWithNav2)">
+              <div class="prev-icon-custom custon-nav"
+                [class.disabled]="sliderTwo.isBeginningSlide"></div>
+            </span>
+          </ion-col>
+          <ion-col size="10">
+     
+            <ion-slides pager="false" [options]="slideOptsTwo" #slideWithNav2
+              (ionSlideDidChange)="SlideDidChange(sliderTwo,slideWithNav2)">
+              <ion-slide *ngFor="let s of sliderTwo.slidesItems">
+                <img src="../../assets/images/{{s.id}}.jpg">
+              </ion-slide>
+            </ion-slides>
+     
+          </ion-col>
+          <ion-col size="1">
+            <span class="slider-nav arrow-next"
+              (click)="slideNext(sliderTwo,slideWithNav2)">
+              <div class="next-icon-custom custon-nav"
+                [class.disabled]="sliderTwo.isEndSlide"></div>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+     
+
+
+</ion-content>

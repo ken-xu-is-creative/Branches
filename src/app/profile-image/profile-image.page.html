@@ -1,0 +1,31 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+<ion-header>
+    <ion-toolbar>
+  
+      <ion-icon name="menu" slot = "start" size = large ></ion-icon>
+  
+      <ion-title>
+        Machina Artem
+      </ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-avatar>
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>      
+
+    <ion-avatar>
+      <img *ngIf = "url" alt=""  [src]="url">
+      <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
+    </ion-avatar>      
+
+    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="GoMainPage">Confirm</ion-button>
+    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="GoMainPage">Not This Moments</ion-button>
+
+    
+
+</ion-content>

@@ -38,7 +38,7 @@
     <ion-item>
         <ion-label position="floating"> The style name </ion-label>
         <ion-input type = "text" required = "true" formControlName = "stylename"></ion-input>
-    </ion-item>
+    </ion-item>2
 
       
         <div class="validation-errors">
@@ -50,7 +50,7 @@
         </div>
 
 
-      <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid"  >Confirm</ion-button>
+      <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" [disabled]="!validations_form.valid" (click)="GoMainPage()" >Confirm</ion-button>
 
 
     </form>
