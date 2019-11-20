@@ -33,6 +33,17 @@ constructor(
       err => reject(err))
   })
  }
+
+ loginUserAnonymously(){
+  
+  return new Promise<any>((resolve, reject) => {
+  firebase.auth().signInAnonymously().then( 
+    res => resolve(res),
+    err => reject(err));
+
+  });
+
+ }
  
 
  matchUsernameWithStyle(value){
@@ -46,7 +57,7 @@ constructor(
 
  logoutUser(){
   return new Promise((resolve, reject) => {
-    if(firebase.auth().currentUser){
+    if(firebase.auth().currentUser||firebase.auth().signInAnonymously){
       firebase.auth().signOut()
       .then(() => {
         console.log("LOG Out");

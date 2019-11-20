@@ -76,7 +76,7 @@
   
   <ion-button class="submit-btn" color="danger" shape="full" expand= "block" href= "\main" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
 
-  <p><ion-button color="danger" shape="full" expand= "block" href= "\main">Proceed Without Account</ion-button></p>
+  <p><ion-button color="danger" shape="full" expand= "block" (click)="signInAnonymously()">Proceed Without Account</ion-button></p>
 
 </form>
 

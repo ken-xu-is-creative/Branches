@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { InfoService } from '../../app/info.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -61,6 +62,29 @@ export class HomePage implements OnInit {
     }, err => {
       this.errorMessage = err.message;
     })
+  }
+
+  signInAnonymously(){
+    this.authService.loginUserAnonymously();
+    this.navCtrl.navigateForward('/main').then(res => {
+      console.log(res);
+      this.errorMessage = "";
+      this.navCtrl.navigateForward('/main');
+    }, err => {
+      this.errorMessage = err.message;
+    });
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        console.log(uid);
+      } else {
+        console.log("Not Siggned In");
+      }
+      // ...
+    });
   }
  
   goToRegisterPage(){

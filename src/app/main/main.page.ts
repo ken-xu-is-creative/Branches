@@ -24,8 +24,11 @@ export class MainPage implements OnInit {
     if(this.authService.userDetails()){
       this.userEmail = this.authService.userDetails().email;
       
-    }else{
-      this.navCtrl.navigateBack('');
+    }else if (firebase.auth().signInAnonymously){
+    
+      this.userEmail = "anonymous";
+    }  else{
+      this.navCtrl.navigateBack('/home');
     }
   }
  
@@ -43,7 +46,7 @@ export class MainPage implements OnInit {
   toProfile(){
  
     this.navCtrl.navigateForward('/profile');
-    console.log("The account is " + firebase.auth().currentUser.email);
+    // console.log("The account is " + firebase.auth().currentUser.email);
 
   }
 

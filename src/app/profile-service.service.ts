@@ -3,7 +3,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { firebaseConfig } from "../app/credentials";
 import { DatePipe } from '@angular/common';
-import { url } from 'inspector';
+
 
 
 @Injectable({
@@ -105,8 +105,6 @@ export function uploadAvatar(image) {
 
     const avatar_image = image;
 
-    const uploadtime = new Date();
-
     const userProfile = firebase.database().ref('users/' + user.uid);
 
     userProfile.once('value').then(snapshot => {
@@ -117,7 +115,9 @@ export function uploadAvatar(image) {
     var userRef = userProfile2.collection("User").doc(user.uid);
       userRef.set({
       name: username,
-      avatarImage: avatar_image
+      email: user.email,
+      avatarImage: avatar_image,
+
      });
     
 

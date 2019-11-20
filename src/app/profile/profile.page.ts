@@ -58,6 +58,8 @@ export class ProfilePage implements OnInit {
   }
 
   verify() {
+  
+  if(firebase.auth().signInWithEmailAndPassword){
     if (firebase.auth().currentUser != null) {
       this.userEmail = firebase.auth().currentUser.email;
       console.log(firebase.auth().currentUser.email);
@@ -66,15 +68,17 @@ export class ProfilePage implements OnInit {
       console.log('No Account');
       this.navCtrl.navigateBack('/main');
     }
+  } else if (firebase.auth().signInAnonymously){
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-       console.log('the user is signned in');
-      } else {
-        console.log('No Account');
-        this.navCtrl.navigateBack('/main');
-      }
-    });
+    
+
+  } else {
+
+    console.log('No Account');
+    this.navCtrl.navigateBack('/main');
+
+  }
+
   }
 
   ngOnInit() {
@@ -107,7 +111,6 @@ combineInfo(value){
 
   uploadImage(event) {
     const user = firebase.auth().currentUser;
-    console.log(user.email);
 
     this.loading = false;
     if (event.target.files && event.target.files[0]) {

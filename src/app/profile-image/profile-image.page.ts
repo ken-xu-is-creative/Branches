@@ -38,6 +38,8 @@ export class ProfileImagePage implements OnInit {
     const user = firebase.auth().currentUser;
     console.log(user.email);
 
+    const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
+    
     this.loading = false;
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -53,7 +55,6 @@ export class ProfileImagePage implements OnInit {
 
         uploadAvatar(fileraw);
 
-      
     }
   }
 }

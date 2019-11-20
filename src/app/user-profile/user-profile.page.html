@@ -22,34 +22,13 @@
 
       <h3>My Styles</h3>
  
-      <ion-grid>
-        <ion-row>
-          <ion-col size="determined">
-            <span class="slider-nav arrow-prev"
-              (click)="slidePrev(sliderTwo,slideWithNav2)">
-              <div class="prev-icon-custom custon-nav"
-                [class.disabled]="sliderTwo.isBeginningSlide"></div>
-            </span>
-          </ion-col>
-          <ion-col size= "determined">
-     
-            <ion-slides pager="false" [options]="slideOptsTwo" #slideWithNav2
-              (ionSlideDidChange)="SlideDidChange(sliderTwo,slideWithNav2)">
-              <ion-slide *ngFor="let s of sliderTwo.slidesItems">
-                <img src="../../assets/images/{{s.id}}.jpg">
-              </ion-slide>
-            </ion-slides>
-     
-          </ion-col>
-          <ion-col size="1">
-            <span class="slider-nav arrow-next"
-              (click)="slideNext(sliderTwo,slideWithNav2)">
-              <div class="next-icon-custom custon-nav"
-                [class.disabled]="sliderTwo.isEndSlide"></div>
-            </span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-slides class="ion-padding" pager="false" [options]="slidesStylesOptions">
+          <ion-slide *ngFor="let style of styles; index as styleIndex">
+            <ion-button class="style" expand="block" fill="clear" (click)="slideStyleTap(styleIndex)">
+              <img [src]="style.imgUrl" crossorigin="anonymous">
+            </ion-button>
+          </ion-slide>
+      </ion-slides>
 
       <h3>Popular Styles</h3>
  
