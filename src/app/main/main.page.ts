@@ -25,7 +25,6 @@ export class MainPage implements OnInit {
       this.userEmail = this.authService.userDetails().email;
       
     }else if (firebase.auth().signInAnonymously){
-    
       this.userEmail = "anonymous";
     }  else{
       this.navCtrl.navigateBack('/home');
