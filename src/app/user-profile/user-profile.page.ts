@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as firebase from 'firebase';
 // import { Slides } from '@ionic/angular';
 
 @Component({
@@ -9,6 +10,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class UserProfilePage implements OnInit {
 
   ngOnInit(){
+
+    
 
   }
 
@@ -161,5 +164,28 @@ export class UserProfilePage implements OnInit {
       object.isEndSlide = istrue;
     });
   }
+
+  getStorageSize(){
+   
+      // var user = firebase.auth().currentUser.uid
+      // var style = firebase.database().ref("/style/"+ user).child( user + "/upload"),addEventListener(new ValueEventListener() {
+      //   @Override
+      //   public void onDataChange(DataSnapshot dataSnapshot) {
+      //       tvWoowCount.setText(""+dataSnapshot.getChildrenCount());
+      // var storageSize = 
+       
+  }
+
+  
+
+  styles = [
+
+    {
+      name: "a",
+      imgUrl: firebase.storage().ref().child("Styles/" + firebase.auth().currentUser.uid + "/a"),
+    
+    }
+    
+  ]
 
 }

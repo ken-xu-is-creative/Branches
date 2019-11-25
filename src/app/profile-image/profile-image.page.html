@@ -13,15 +13,30 @@
 </ion-header>
 
 <ion-content>
+
+<div>
+<ion-fab vertical="center" horizontal="center" class = "avatar">
+  <ion-fab-button >
+    <ion-avatar (click) = "uploadImage($event)" class = ".uploadbtn">
+
+      <img *ngIf="!url" alt = "" src="../../assets/images/default_avatar.png/">
+      <img *ngIf="url" alt = "" [src]="url"/>  
+           
+      <label class = "invisible">
+        <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
+      </label>
+         
+        
+        <!-- <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*"> -->
+    </ion-avatar> 
+  </ion-fab-button>  
+</ion-fab>
+</div>
   
-    <ion-avatar>
-      <img *ngIf = "url" alt=""  [src]="url">
-      <input (change)="uploadImage($event)" type="file" class="image-upload" accept="image/*">
-    </ion-avatar>      
 
-    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="GoMainPage" [disabled]="!notClicked" >Confirm</ion-button>
-    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="makeAvatarDefault" (click)="GoMainPage">Not This Moments</ion-button>
-
+    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="GoMainPage()" >Confirm</ion-button>
+    <ion-button class="submit-btn" color="danger" shape="full" expand= "block" type= "submit" (click)="makeAvatarDefault()" (click)="GoMainPage()">Not This Moments</ion-button>
+  
     
 
 </ion-content>

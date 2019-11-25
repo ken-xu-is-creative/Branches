@@ -3,6 +3,7 @@ import { uploadAvatar} from '../profile-service.service';
 import * as firebase from 'firebase';
 import { NavController } from '@ionic/angular';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 export interface Image {
   id: string;
@@ -17,9 +18,10 @@ export interface Image {
 
 export class ProfileImagePage implements OnInit {
 
-  constructor( 
+  constructor(
     private navCtrl: NavController,
-    private afs: AngularFirestore) { 
+    private afs: AngularFirestore, private afStorage: AngularFireStorage,
+  ) { 
   }
 
   loading = false;
@@ -32,14 +34,33 @@ export class ProfileImagePage implements OnInit {
   };
 
   ngOnInit() {
+    
+    if(firebase.auth().signInWithEmailAndPassword){
+      if (firebase.auth().currentUser != null) {
+        this.userEmail = firebase.auth().currentUser.email;
+        console.log(firebase.auth().currentUser.email);
+        console.log(firebase.auth().currentUser.uid);
+        this.makeAvatarDefault();
+      } else {
+        console.log('No Account');
+        this.navCtrl.navigateBack('/main');
+      }
+    } else if (firebase.auth().signInAnonymously){
+  
+      this.makeAvatarDefault();
+  
+    } else {
+  
+      console.log('No Account');
+      this.navCtrl.navigateBack('/main');
+  
+    }
+
   }
 
   uploadImage(event) {
     const user = firebase.auth().currentUser;
-    console.log(user.email);
 
-    const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
-    
     this.loading = false;
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -53,19 +74,42 @@ export class ProfileImagePage implements OnInit {
         const fileraw = event.target.files[0];
         console.log(fileraw);
 
-        uploadAvatar(fileraw);
 
+        const filePath = '/Avatar/' + user.uid + '/Avatar of' + (user.uid);
+        const result = this.SaveImageRef(filePath, fileraw);
+        const ref = result.ref;
+        result.task.then(a => {
+          ref.getDownloadURL().subscribe(url => {
+            console.log(url);
+            this.avatarImage.image = url;
+            this.loading = false;
+
+            uploadAvatar(url);
+          });
+        });
+      };
     }
   }
+
+SaveImageRef(filePath, file) {
+  return {
+    task: this.afStorage.upload(filePath, file),
+    ref: this.afStorage.ref(filePath)
+  };
 }
-
-
-  
 
   GoMainPage(){
 
+    uploadAvatar(this.url);
     this.navCtrl.navigateBack('/main');
 
   }
+
+  makeAvatarDefault(){
+
+    this.url = "../../assets/images/default_avatar.png";
+
+  }
+
 
 }
