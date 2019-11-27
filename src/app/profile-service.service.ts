@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { firebaseConfig } from "../app/credentials";
-import { DatePipe } from '@angular/common';
-
 
 
 @Injectable({
@@ -31,8 +29,10 @@ export class ProfileServiceService{
     var user = firebase.auth().currentUser;
 
     firebase.database().ref('users/' + user.uid).set({
+
       username: value.username,
       email:user.email
+
     }, function(error) {
       if (error) {
         // The write failed...
@@ -80,15 +80,33 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
     const name = stylename;
     const uploadtime = new Date();
     userProfile.once('value').then(snapshot => {
+      
       const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-      firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
+
+      // const stylePath = firebase.firestore().collection("styles/").doc(stylename);
+
+      // stylePath.set({
+
+      //   author: username,
+      //   privacySetting: privacySet,
+      //   style_name: name,
+      //   uploadtime: uploadtime,
+      //   flaggedCount: 0,
+      //   authorPic: url
+
+      // });
+
+      // firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
+      firebase.firestore().collection("styles").doc(user.uid).set({
         author: username,
         privacySetting: privacySet,
         style_name: stylename,
         flaggedCount: 0,
-        authorPic: url
-      });
-    });
+        style: url,
+      }).then(
+        res => resolve(res),
+        err => reject(err))
+      })
   }
 );
 
@@ -121,9 +139,18 @@ export function uploadAvatar(image) {
      });
     
 
-  });
+  }).then(
+      res => resolve(res),
+      err => reject(err))
 
 });
+
+}
+
+export function downAllImages(user){
+
+  user.uid
+
 
 }
 

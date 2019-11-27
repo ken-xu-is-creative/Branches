@@ -29,6 +29,9 @@ export class ProfileImagePage implements OnInit {
   userEmail: string;
 
   url: any;
+
+  fileraw: any;
+
   avatarImage: Image = {
     id: this.afs.createId(), image: ''
   };
@@ -58,38 +61,50 @@ export class ProfileImagePage implements OnInit {
 
   }
 
-  uploadImage(event) {
-    const user = firebase.auth().currentUser;
+  findImage(event) {
 
+    const reader = new FileReader;
     this.loading = false;
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]);
       // For Preview Of Image
       reader.onload = (e: any) => { // called once readAsDataURL is completed
         this.url = e.target.result;
 
         // For Uploading Image To Firebase
-        const fileraw = event.target.files[0];
-        console.log(fileraw);
+        this.fileraw = event.target.files[0];
+        console.log(this.fileraw);
+
+      }
+    }
+  }
+
+  uploadImage(){
 
 
-        const filePath = '/Avatar/' + user.uid + '/Avatar of' + (user.uid);
-        const result = this.SaveImageRef(filePath, fileraw);
-        const ref = result.ref;
-        result.task.then(a => {
-          ref.getDownloadURL().subscribe(url => {
+    console.log("s")
+    
+    const user = firebase.auth().currentUser;
+
+    const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
+    const result = this.SaveImageRef(filePath, this.fileraw);
+    const ref = result.ref;
+    result.task.then(a => {
+      ref.getDownloadURL().subscribe(url => {
             console.log(url);
             this.avatarImage.image = url;
             this.loading = false;
-
-            uploadAvatar(url);
+            uploadAvatar(url).then(res => {
+              console.log(res);
+        
+            }, err => {
+              console.log(err); 
+            })
           });
         });
-      };
-    }
+      
   }
+
 
 SaveImageRef(filePath, file) {
   return {

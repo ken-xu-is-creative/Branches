@@ -11,9 +11,8 @@ export class UserProfilePage implements OnInit {
 
   ngOnInit(){
 
-    
-
   }
+
 
   // @ViewChild('slideWithNav') slideWithNav: Slides;
   // @ViewChild('slideWithNav2') slideWithNav2: Slides;
@@ -22,6 +21,16 @@ export class UserProfilePage implements OnInit {
   sliderOne: any;
   sliderTwo: any;
   sliderThree: any;
+
+  // getLocation(){
+
+  //   var user = firebase.auth().currentUser;
+
+  //   var imageID = 
+
+  //   // return firebase.storage().ref("Style/"+user.uid+ "/image");
+
+  // }
  
  
   //Configuration for each Slider

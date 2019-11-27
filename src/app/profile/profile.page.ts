@@ -32,11 +32,8 @@ export class ProfilePage implements OnInit {
   successMessage = '';
 
   validation_messages = {
-    styleUrl: [
-      { type: 'required', message: 'Email is required.' },
-    ],
     stylename: [
-      { type: 'required', message: 'Password is required.' },
+      { type: 'required', message: 'Style Name is required.' },
     ]
   };
 
@@ -48,6 +45,7 @@ export class ProfilePage implements OnInit {
   loading = false;
   downloadURL: any;
   userEmail: string;
+  fileraw: any;
 
   constructor(
     private navCtrl: NavController,
@@ -109,37 +107,49 @@ combineInfo(value){
 }
 
 
-  uploadImage(event) {
-    const user = firebase.auth().currentUser;
 
+  findImage(event) {
+
+    const reader = new FileReader;
     this.loading = false;
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]);
       // For Preview Of Image
       reader.onload = (e: any) => { // called once readAsDataURL is completed
         this.url = e.target.result;
 
         // For Uploading Image To Firebase
-        const fileraw = event.target.files[0];
-        console.log(fileraw);
+        this.fileraw = event.target.files[0];
+        console.log(this.fileraw);
+
+      }
+    }
+  }
+
+  uploadImage(){
 
 
-        const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
-        const result = this.SaveImageRef(filePath, fileraw);
-        const ref = result.ref;
-        result.task.then(a => {
-          ref.getDownloadURL().subscribe(url => {
+    console.log("s")
+    
+    const user = firebase.auth().currentUser;
+
+    const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
+    const result = this.SaveImageRef(filePath, this.fileraw);
+    const ref = result.ref;
+    result.task.then(a => {
+      ref.getDownloadURL().subscribe(url => {
             console.log(url);
             this.newImage.image = url;
             this.loading = false;
-
-            uploadCustomizedStyle(url, this.combineInfo(this.validations_form.value).stylename, this.isPublic);
+            uploadCustomizedStyle(url, this.combineInfo(this.validations_form.value).stylename, this.isPublic).then(res => {
+              console.log(res);
+        
+            }, err => {
+              console.log(err); 
+            })
           });
         });
-      };
-    }
+      
   }
 
 
@@ -148,6 +158,22 @@ combineInfo(value){
       task: this.afStorage.upload(filePath, file),
       ref: this.afStorage.ref(filePath)
     };
+  }
+
+
+
+  isClicked(event){
+
+    if (event){
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+    
   }
 
   GoMainPage(){
