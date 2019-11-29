@@ -72,7 +72,10 @@ export function toggleFlag(postRef, uid) {
 
 
 export function uploadCustomizedStyle(url, stylename, privacy) {
+
   const user = firebase.auth().currentUser;
+
+  console.log(user.uid);
 
   return new Promise<any>((resolve, reject) => {
     const userProfile = firebase.database().ref('users/' + user.uid);
@@ -97,7 +100,7 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
       // });
 
       // firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
-      firebase.firestore().collection("styles").doc(user.uid).set({
+    firebase.firestore().collection("/Styles").doc(user.uid).set({
         author: username,
         privacySetting: privacySet,
         style_name: stylename,
@@ -106,7 +109,7 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
       }).then(
         res => resolve(res),
         err => reject(err))
-      })
+    })
   }
 );
 
@@ -116,6 +119,8 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
 export function uploadAvatar(image) {
 
   const user = firebase.auth().currentUser;
+
+  console.log(user.uid);
 
   return new Promise<any>((resolve, reject) => {
 
