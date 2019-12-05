@@ -108,7 +108,7 @@ combineInfo(value){
 
 
 
-  findImage(event) {
+findImage(event) {
 
     const reader = new FileReader;
     this.loading = false;

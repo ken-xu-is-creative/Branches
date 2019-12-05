@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { firebaseConfig } from "../app/credentials";
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -10,9 +12,19 @@ import { firebaseConfig } from "../app/credentials";
 
 export class ProfileServiceService{
 
+  public styleList: AngularFirestoreCollection<any>;
+  public userId: string;
+
   constructor(
 
-  ) {}
+    public afAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private afStorage: AngularFireStorage
+
+  ) {
+    
+    
+  }
 
   getUser(){
 
@@ -100,7 +112,7 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
       // });
 
       // firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
-    firebase.firestore().collection("/Styles").doc(user.uid).set({
+    firebase.firestore().collection("/users").doc(user.uid).set({
         author: username,
         privacySetting: privacySet,
         style_name: stylename,
@@ -151,7 +163,7 @@ export function uploadAvatar(image) {
 });
 
 }
-
+ 
 export function downAllImages(user){
 
   user.uid

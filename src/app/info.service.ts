@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { ProfileServiceService } from "../app/profile-service.service";
+import { EmailValidator } from '@angular/forms';
 
 @Injectable()
 
@@ -44,7 +45,25 @@ constructor(
   });
 
  }
- 
+
+ checkEmail(value) {
+
+  return new Promise<any>((resolve, reject) => {
+   
+  const emailAddress = <string>value.email;
+
+  console.log(emailAddress);
+
+  firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
+    // Email sent.
+  }).catch(function(error) {
+    console.log(error);
+    
+  });
+
+  });
+}
+
 
  matchUsernameWithStyle(value){
 
