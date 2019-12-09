@@ -64,8 +64,8 @@ export class PasswordRecoveryPage implements OnInit {
      })
   }
 
-  goMainPage(){
-    this.navCtrl.navigateForward("/username");
+  goHomePage(){
+    this.navCtrl.navigateForward("/home");
   }
 
 }

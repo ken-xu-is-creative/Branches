@@ -86,7 +86,7 @@ export class ProfileImagePage implements OnInit {
     
     const user = firebase.auth().currentUser;
 
-    const filePath = '/Style/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
+    const filePath = '/Avatar/' + user.uid + '/Image' + (Math.floor(1000 + Math.random() * 9000) + 1);
     const result = this.SaveImageRef(filePath, this.fileraw);
     const ref = result.ref;
     result.task.then(a => {

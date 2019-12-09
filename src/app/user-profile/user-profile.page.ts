@@ -52,6 +52,7 @@ export class UserProfilePage implements OnInit {
  
   constructor(
   ) {
+    
     //Item object for Nature
     this.sliderOne =
       {
@@ -174,24 +175,66 @@ export class UserProfilePage implements OnInit {
     });
   }
 
-  getStorageSize(){
+  getImageURL(){
+
+    const user = firebase.auth().currentUser;
+
+    const userId = user.uid;
    
-      // var user = firebase.auth().currentUser.uid
+    firebase.database().ref('/style/' + userId + "/upload").once('value').then(function(snapshot) {
+
+      const imageURL = (snapshot.val() && snapshot.val().url||"null");
+
+      return imageURL;
+
+    })
+      // ...
+     
+    
+    // var user = firebase.auth().currentUser.
       // var style = firebase.database().ref("/style/"+ user).child( user + "/upload"),addEventListener(new ValueEventListener() {
       //   @Override
       //   public void onDataChange(DataSnapshot dataSnapshot) {
       //       tvWoowCount.setText(""+dataSnapshot.getChildrenCount());
       // var storageSize = 
        
-  }
+    }
 
+    getImageName(){
+
+      const user = firebase.auth().currentUser;
   
+      const userId = user.uid;
+     
+      firebase.database().ref('/style/' + userId + "/upload").once('value').then(function(snapshot) {
+  
+        const imageURL = (snapshot.val() && snapshot.val().name||"null");
+  
+        return imageURL;
+  
+      })
+
+      
+    }
+
 
   styles = [
 
     {
+      name: this.getImageName(),
+      imgUrl: this.getImageURL()
+    
+    },
+
+    {
+      name: this.getImageName(),
+      imgUrl: this.getImageURL()
+    
+    },
+
+    {
       name: "a",
-      imgUrl: firebase.storage().ref().child("Styles/" + firebase.auth().currentUser.uid + "/a"),
+      imgUrl: this.getImageURL()
     
     }
     

@@ -65,6 +65,18 @@ export class MainPage implements OnInit {
     
   }
 
+  toUserProfile(){
+
+    if(firebase.auth().signInWithEmailAndPassword){
+      this.navCtrl.navigateForward('/user-profile');
+      // console.log("The account is " + firebase.auth().currentUser.email);
+      }else{
+        this.navCtrl.navigateForward('/home');
+      }
+  
+    
+  }
+
 }
 
 

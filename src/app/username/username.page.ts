@@ -71,7 +71,7 @@ export class UsernamePage implements OnInit {
       console.log(res);
       this.errorMessage = "";
       this.successMessage = "Your account has been created.";
-      this.navCtrl.navigateForward('/main');
+      this.navCtrl.navigateForward('/profile-image');
 
     }, err => {
       console.log(err);

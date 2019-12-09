@@ -76,6 +76,7 @@ constructor(
 
  logoutUser(){
   return new Promise((resolve, reject) => {
+
     if(firebase.auth().currentUser||firebase.auth().signInAnonymously){
       firebase.auth().signOut()
       .then(() => {
