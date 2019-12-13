@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>popular-style</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-list>
+  <ion-reorder-group (ionItemReorder)="doReorder($event)" [disabled]="!reorderMode">
+    <ion-item *ngFor="let favorite of favorites; let i = index">
+      <ion-thumbnail slot="start">
+        <img [src]="smallImageUrl(favorite.image)" crossorigin="anonymous">
+          <ion-icon *ngIf="favorite.isPublic" slot="icon-only" name="eye"></ion-icon>
+        </ion-button>
+      </ion-thumbnail>
+      <div class="container">
+        <ion-input placeholder="Title" [value]="favorite.title" [readonly]="favorite.isWikiart"
+            (ionBlur)="onTitleBlur($event, i)"></ion-input>
+        <ion-textarea placeholder="Description" rows="3" [value]="favorite.description" [readonly]="favorite.isWikiart"
+            (ionBlur)="onDescriptionBlur($event, i)"></ion-textarea>
+            <ion-icon name="flag" (click) = "flagging()"></ion-icon>
+      </div>
+      <ion-button *ngIf="!reorderMode" fill="clear" slot="end" class="delete" (click)="delete(i)">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+</ion-list>
+</ion-content>

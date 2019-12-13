@@ -14,38 +14,34 @@
 
 <ion-content>
     <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-        </ion-avatar>
-        <ion-label>Item Avatar</ion-label>
-      </ion-item>
+        <ion-thumbnail slot="start">
+          
+            <img  alt = "" src={{avatar}}>
+          
+        </ion-thumbnail>
 
-      <h3>My Styles</h3>
- 
-      <ion-row *ngFor="let i of items">
-        <ion-list *ngFor="let t of time" class="time">
-          <ion-col>
-          </ion-col>
-        </ion-list>
-      </ion-row>
-      
-      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+      <div class = "info">
+        
+        Username: <ion-input placeholder = "username" value= {{username}} (ionBlur)="onTitleBlur($event)" disabled = {{isDisabled}}></ion-input>
+  
+        
+        Email: <ion-input placeholder = "email" value= {{email}} (ionBlur)="onEmailBlur($event)" disabled = {{isDisabled}}></ion-input>
 
-      <h3>Popular Styles</h3>
- 
-      <ion-row *ngFor="let i of items">
-        <ion-list *ngFor="let t of time" class="time">
-          <ion-col>
-          </ion-col>
-        </ion-list>
-      </ion-row>
-      
-      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    <ion-button (click) = "isInEditing()" disabled = {{cannotEdit}}><ion-icon name="create" slot = "start" size = large  ></ion-icon> <ion-label>Edit Profile</ion-label></ion-button>
+
+    <ion-button (click) = "switchBack()" disabled = {{cannotUpdate}}><ion-icon name="checkmark" slot = "start" size = large ></ion-icon> <ion-label>Confirm</ion-label></ion-button>
+
+      </div>
+
+    </ion-item>
+
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Log Out</ion-button>
+
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Browse For Popular Styles</ion-button>
+
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Browse Your Styles</ion-button>
+
+
+
      
 </ion-content>

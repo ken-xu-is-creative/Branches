@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'username', loadChildren: './username/username.module#UsernamePageModule' },  { path: 'user-profile', loadChildren: './user-profile/user-profile.module#UserProfilePageModule' },
   { path: 'profile-image', loadChildren: './profile-image/profile-image.module#ProfileImagePageModule' },
   { path: 'password-recovery', loadChildren: './password-recovery/password-recovery.module#PasswordRecoveryPageModule' },
+  { path: 'popular-style', loadChildren: './popular-style/popular-style.module#PopularStylePageModule' },
 
 
     

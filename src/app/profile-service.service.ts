@@ -128,6 +128,7 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
 );
 
 
+
 }
 
 export function uploadAvatar(image) {
@@ -151,7 +152,7 @@ export function uploadAvatar(image) {
 
     var userRef = userProfile2.collection("User").doc(user.uid);
       userRef.set({
-      name: username,
+      username: username,
       email: user.email,
       avatarImage: avatar_image,
 
@@ -165,6 +166,7 @@ export function uploadAvatar(image) {
 });
 
 }
+
  
 export function downAllImages(user){
 
