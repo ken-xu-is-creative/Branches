@@ -40,18 +40,7 @@ export class ProfileServiceService{
 
     var user = firebase.auth().currentUser;
 
-    firebase.database().ref('users/' + user.uid).set({
-
-      username: value.username,
-      email:user.email
-
-    }, function(error) {
-      if (error) {
-        // The write failed...
-      } else {
-        // Data saved successfully!
-      }
-    }).then(
+    firebase.firestore().collection("User").doc(user.uid).update( { "username" : value.username} ).then(
       res => resolve(res),
       err => reject(err))
     })
@@ -83,7 +72,7 @@ export function toggleFlag(postRef, uid) {
 }
 
 
-export function uploadCustomizedStyle(url, stylename, privacy) {
+export async function uploadCustomizedStyle(url, stylename, privacy) {
 
   const user = firebase.auth().currentUser;
 
@@ -91,45 +80,42 @@ export function uploadCustomizedStyle(url, stylename, privacy) {
   console.log(stylename);
   console.log(url);
 
-  return new Promise<any>((resolve, reject) => {
-    const userProfile = firebase.database().ref('users/' + user.uid);
+  return new Promise<any>(async (resolve, reject) => {
+    const userProfile = firebase.firestore().collection("User").doc(user.uid);
     const privacySet = String(privacy);
     const name = stylename;
     const uploadtime = new Date();
-    userProfile.once('value').then(snapshot => {
+
+    var username;
+
+    await userProfile.get().then(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      var data = doc.data();
+      username = data.name;
+
+      console.log(username);
       
-      const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+      }).catch(function(error) {
+      console.log("Error getting documents: ", error);
+      });
 
-      // const stylePath = firebase.firestore().collection("styles/").doc(stylename);
 
-      // stylePath.set({
 
-      //   author: username,
-      //   privacySetting: privacySet,
-      //   style_name: name,
-      //   uploadtime: uploadtime,
-      //   flaggedCount: 0,
-      //   authorPic: url
-
-      // });
-
-      // firebase.database().ref('style/' + user.uid + '/upload/' + uploadtime).set({
     firebase.firestore().collection("/Styles").doc(user.uid).set({
         author: username,
         privacySetting: privacySet,
         style_name: stylename,
         flaggedCount: 0,
         style: url,
+        uploadtime: uploadtime
       }).then(
         res => resolve(res),
         err => reject(err))
     })
   }
-);
 
 
-
-}
 
 export function uploadAvatar(image) {
 
@@ -139,27 +125,11 @@ export function uploadAvatar(image) {
 
   return new Promise<any>((resolve, reject) => {
 
-    const userProfile2 = firebase.firestore();
-
     const avatar_image = image;
 
-    const userProfile = firebase.database().ref('users/' + user.uid);
+    const userProfile = firebase.firestore().collection("User").doc(user.uid);
 
-    userProfile.once('value').then(snapshot => {
-    
-    
-    const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-
-    var userRef = userProfile2.collection("User").doc(user.uid);
-      userRef.set({
-      username: username,
-      email: user.email,
-      avatarImage: avatar_image,
-
-     });
-    
-
-  }).then(
+    userProfile.update({avatar: avatar_image}).then(
       res => resolve(res),
       err => reject(err))
 
@@ -167,12 +137,5 @@ export function uploadAvatar(image) {
 
 }
 
- 
-export function downAllImages(user){
-
-  user.uid
-
-
-}
 
 

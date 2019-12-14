@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { LoadingController, AlertController } from '@ionic/angular';
 import { InfoService } from '../../app/info.service';
 import { NavController } from '@ionic/angular';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-sign-up',
@@ -73,7 +74,7 @@ export class SignUpPage implements OnInit {
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created.";
-       wait(3000);
+       this.createProfile();
        this.navCtrl.navigateForward('/username');
 
      }, err => {
@@ -81,10 +82,27 @@ export class SignUpPage implements OnInit {
        this.errorMessage = err.message;
        this.successMessage = "";
      })
+
+
   }
 
   goMainPage(){
     this.navCtrl.navigateForward("/username");
+  }
+
+  createProfile(){
+
+    var user = firebase.auth().currentUser;
+
+    console.log(user.uid);
+
+    var userRef = firebase.firestore().collection("User").doc(user.uid);
+     userRef.set({
+     username: "",
+     email: user.email,
+     avatarImage: null,
+    });
+
   }
 
 }

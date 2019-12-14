@@ -12,8 +12,8 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-item>
+<ion-content fullscreen class = "background-image">
+    <ion-item class = "transparent">
         <ion-thumbnail slot="start">
           
             <img  alt = "" src={{avatar}}>
@@ -21,11 +21,12 @@
         </ion-thumbnail>
 
       <div class = "info">
+
         
-        Username: <ion-input placeholder = "username" value= {{username}} (ionBlur)="onUsernameBlur($event)" disabled = {{isDisabled}}></ion-input>
+        Username: <ion-item class = "textfield"><ion-input placeholder = "username" value= {{username}} (ionBlur)="onUsernameBlur($event)" disabled = {{isDisabled}}></ion-input></ion-item>
   
         
-        Email: <ion-input placeholder = "email" value= {{email}} (ionBlur)="onEmailBlur($event)" disabled = {{isDisabled}}></ion-input>
+        Email: <ion-item class = "textfield"><ion-input placeholder = "email" value= {{email}} (ionBlur)="onEmailBlur($event)" disabled = {{isDisabled}}></ion-input></ion-item>
 
     <ion-button (click) = "isInEditing()" disabled = {{cannotEdit}}><ion-icon name="create" slot = "start" size = large  ></ion-icon> <ion-label>Edit Profile</ion-label></ion-button>
 

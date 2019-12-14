@@ -18,12 +18,14 @@ constructor(
 }
 
  registerUser(value){
+
   return new Promise<any>((resolve, reject) => {
     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
     .then(
       res => resolve(res),
       err => reject(err))
   })
+  
  }
 
  loginUser(value){
@@ -183,7 +185,7 @@ async getUsername(): Promise<any>{
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             var data = doc.data();
-            username = data.name;
+            username = data.username;
 
             console.log(username);
             
