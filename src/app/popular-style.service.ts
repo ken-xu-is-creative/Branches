@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Plugins } from '@capacitor/core';
+import * as firebase from 'firebase';
 
 const { Storage } = Plugins;
 
@@ -26,9 +27,28 @@ export class PopularStyleService {
     });
   }
 
-  public async getAllPopularStyles(): Promise<FavoriteStyle[]> {
-    const data = await Storage.get({ key: favouriteKey });
-    return JSON.parse(data.value);
+  public async getAllPopularStyles(): Promise<any> {
+
+
+    var data;
+
+    const fileRef = firebase.firestore().collection("Style")
+
+    const fileSearch = fileRef.where("privacy","==",false);
+
+    await fileSearch.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+
+          data = doc.data();
+          
+      });
+    });
+
+    return data;
+
+
   }
 
   public async addAllPopularStyles(favorites: FavoriteStyle[]): Promise<void> {

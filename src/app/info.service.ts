@@ -120,6 +120,14 @@ updateEmail(newEmail) {
   
   currentUserInfo.update( { "email" : newEmail} );
 
+  firebase.auth().currentUser.updateEmail(newEmail).then(function() {
+    console.log("is Successful")
+  }).catch(function(error) {
+    // An error happened.
+  });;
+
+  console.log(user.email);
+
 }
 
 returnEmail():any{

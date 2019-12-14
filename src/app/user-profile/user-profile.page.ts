@@ -96,7 +96,7 @@ export class UserProfilePage implements OnInit {
    * @param event ...
    * @param index ...
    */
-  public onTitleBlur(event: any): void {
+  public onUsernameBlur(event: any): void {
 
 
     console.log(this.username);
@@ -118,11 +118,10 @@ export class UserProfilePage implements OnInit {
    */
   public onEmailBlur(event: any): void {
 
-    var email = this.infoService.getEmail();
 
     const newEmail = event.target.value;
-    if (email!== newEmail) {
-      email = newEmail;
+    if (this.email!== newEmail) {
+      this.email = newEmail;
       this.infoService.updateEmail(this.email);
       this.cannotUpdate = false;
     }

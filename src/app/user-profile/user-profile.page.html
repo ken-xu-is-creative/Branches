@@ -22,7 +22,7 @@
 
       <div class = "info">
         
-        Username: <ion-input placeholder = "username" value= {{username}} (ionBlur)="onTitleBlur($event)" disabled = {{isDisabled}}></ion-input>
+        Username: <ion-input placeholder = "username" value= {{username}} (ionBlur)="onUsernameBlur($event)" disabled = {{isDisabled}}></ion-input>
   
         
         Email: <ion-input placeholder = "email" value= {{email}} (ionBlur)="onEmailBlur($event)" disabled = {{isDisabled}}></ion-input>
@@ -35,11 +35,11 @@
 
     </ion-item>
 
-    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Log Out</ion-button>
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()"  disabled = {{cannotEdit}}>Log Out</ion-button>
 
-    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Browse For Popular Styles</ion-button>
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()"  disabled = {{cannotEdit}}>Browse For Popular Styles</ion-button>
 
-    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()">Browse Your Styles</ion-button>
+    <ion-button color="danger" shape="full" expand= "block" (click) = "logout()"  disabled = {{cannotEdit}}>Browse Your Styles</ion-button>
 
 
 

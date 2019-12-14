@@ -76,7 +76,18 @@ export class PopularStylePage implements OnInit {
 
 
   private async loadData(): Promise<void> {
-    this.popular = await this.popularStylesService.getAllPopularStyles();
+
+    var data = await this.popularStylesService.getAllPopularStyles();
+
+    const array =  {
+      title: data.style_name,
+      description: data.description,
+      image: data.image,
+      flag: data.flaggedCount,
+      author: data.author
+
   }
 
+
+}
 }
